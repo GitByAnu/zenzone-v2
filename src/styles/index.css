@@ -1,0 +1,371 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts already loaded via index.html ─── */
+
+/* ─── CSS Design Tokens ─── */
+:root {
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Calm Night (default theme) */
+  --bg-primary: #0a0f1e;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1a2035;
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --bg-glass-hover: rgba(255, 255, 255, 0.07);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-hover: rgba(255, 255, 255, 0.14);
+
+  --text-primary: #e8edf5;
+  --text-secondary: #8899aa;
+  --text-tertiary: #4d6070;
+  --text-accent: #7c9ef5;
+
+  --accent-blue: #7c9ef5;
+  --accent-lavender: #a78bfa;
+  --accent-amber: #f0b97a;
+  --accent-teal: #5eead4;
+  --accent-rose: #fb7185;
+
+  --orb-1: rgba(124, 158, 245, 0.15);
+  --orb-2: rgba(167, 139, 250, 0.12);
+  --orb-3: rgba(94, 234, 212, 0.08);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-glow-blue: 0 0 30px rgba(124, 158, 245, 0.25);
+  --shadow-glow-lavender: 0 0 30px rgba(167, 139, 250, 0.25);
+
+  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Morning Mist Theme */
+[data-theme="morning-mist"] {
+  --bg-primary: #f0f4f8;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e8eef5;
+  --bg-glass: rgba(255, 255, 255, 0.65);
+  --bg-glass-hover: rgba(255, 255, 255, 0.8);
+  --border-glass: rgba(99, 102, 241, 0.1);
+  --border-glass-hover: rgba(99, 102, 241, 0.2);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+  --text-accent: #4f46e5;
+  --accent-blue: #4f46e5;
+  --accent-lavender: #7c3aed;
+  --orb-1: rgba(99, 102, 241, 0.12);
+  --orb-2: rgba(139, 92, 246, 0.1);
+  --orb-3: rgba(167, 243, 208, 0.2);
+  --shadow-glass: 0 8px 32px rgba(99, 102, 241, 0.1);
+}
+
+/* Forest Deep Theme */
+[data-theme="forest-deep"] {
+  --bg-primary: #0a1a0f;
+  --bg-secondary: #0f2a1a;
+  --bg-tertiary: #142e1e;
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border-glass: rgba(94, 234, 212, 0.1);
+  --text-primary: #d1fae5;
+  --text-secondary: #6ee7b7;
+  --text-accent: #34d399;
+  --accent-blue: #34d399;
+  --accent-lavender: #6ee7b7;
+  --orb-1: rgba(52, 211, 153, 0.15);
+  --orb-2: rgba(16, 185, 129, 0.1);
+}
+
+/* ─── Base Styles ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  overflow-x: hidden;
+}
+
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-glass-hover);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* ─── Glassmorphism Components ─── */
+@layer components {
+  .glass {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glass);
+    transition: var(--transition-smooth);
+  }
+
+  .glass:hover {
+    background: var(--bg-glass-hover);
+    border-color: var(--border-glass-hover);
+  }
+
+  .glass-sm {
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-card {
+    @apply glass;
+    padding: 1.5rem;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-body font-medium text-sm;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-lavender));
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-spring);
+    box-shadow: 0 4px 15px rgba(124, 158, 245, 0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(124, 158, 245, 0.4);
+  }
+  .btn-primary:active {
+    transform: translateY(0px) scale(0.98);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-body font-medium text-sm;
+    background: var(--bg-glass);
+    color: var(--text-primary);
+    border: 1px solid var(--border-glass);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+  }
+  .btn-ghost:hover {
+    background: var(--bg-glass-hover);
+    border-color: var(--border-glass-hover);
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-body font-medium text-sm;
+    background: rgba(251, 113, 133, 0.15);
+    color: #fb7185;
+    border: 1px solid rgba(251, 113, 133, 0.2);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+  }
+  .btn-danger:hover {
+    background: rgba(251, 113, 133, 0.25);
+  }
+
+  /* Input */
+  .input-zen {
+    @apply w-full px-4 py-3 rounded-xl text-sm font-body;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    color: var(--text-primary);
+    outline: none;
+    transition: var(--transition-smooth);
+  }
+  .input-zen::placeholder {
+    color: var(--text-tertiary);
+  }
+  .input-zen:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(124, 158, 245, 0.15);
+    background: var(--bg-glass-hover);
+  }
+
+  /* Display font utility */
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-mono-zen {
+    font-family: var(--font-mono);
+  }
+
+  /* Page title style */
+  .page-title {
+    @apply text-3xl font-display font-semibold;
+    color: var(--text-primary);
+  }
+  .section-title {
+    @apply text-sm font-medium tracking-widest uppercase;
+    color: var(--text-secondary);
+  }
+
+  /* Ambient orb (background decoration) */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  /* Status badge */
+  .badge {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium;
+  }
+  .badge-blue {
+    background: rgba(124, 158, 245, 0.15);
+    color: var(--accent-blue);
+    border: 1px solid rgba(124, 158, 245, 0.2);
+  }
+  .badge-green {
+    background: rgba(94, 234, 212, 0.15);
+    color: var(--accent-teal);
+    border: 1px solid rgba(94, 234, 212, 0.2);
+  }
+  .badge-amber {
+    background: rgba(240, 185, 122, 0.15);
+    color: var(--accent-amber);
+    border: 1px solid rgba(240, 185, 122, 0.2);
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border-glass);
+    margin: 1rem 0;
+  }
+}
+
+/* ─── Animations ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  33%       { transform: translateY(-30px) translateX(15px) rotate(2deg); }
+  66%       { transform: translateY(15px) translateX(-10px) rotate(-1deg); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.65; transform: scale(1.08); }
+}
+
+@keyframes breathe-expand {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 1; }
+}
+
+@keyframes breathe-contract {
+  0%   { transform: scale(1.6); opacity: 1; }
+  100% { transform: scale(1);   opacity: 0.6; }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ─── Loading Skeleton ─── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-glass) 25%,
+    var(--bg-glass-hover) 50%,
+    var(--bg-glass) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ─── Page transitions (Framer Motion base) ─── */
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* ─── Pomodoro Timer Ring ─── */
+.timer-ring-bg {
+  fill: none;
+  stroke: var(--border-glass);
+  stroke-width: 6;
+}
+.timer-ring-progress {
+  fill: none;
+  stroke: url(#timerGradient);
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* ─── Mood Scale Emoji Button ─── */
+.mood-btn {
+  @apply flex flex-col items-center gap-1 p-3 rounded-2xl cursor-pointer;
+  transition: var(--transition-spring);
+  border: 1px solid transparent;
+}
+.mood-btn:hover {
+  background: var(--bg-glass-hover);
+  transform: scale(1.1);
+}
+.mood-btn.selected {
+  background: var(--bg-glass-hover);
+  border-color: var(--accent-blue);
+  transform: scale(1.15);
+  box-shadow: var(--shadow-glow-blue);
+}
+
+/* ─── Habit Grid ─── */
+.habit-cell {
+  @apply w-4 h-4 rounded-sm cursor-pointer;
+  background: var(--bg-glass);
+  transition: var(--transition-smooth);
+}
+.habit-cell.done {
+  background: var(--accent-teal);
+  box-shadow: 0 0 8px rgba(94, 234, 212, 0.4);
+}
+.habit-cell:hover {
+  transform: scale(1.3);
+}
