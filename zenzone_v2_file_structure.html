@@ -1,0 +1,231 @@
+
+<h2 class="sr-only">ZenZone V2 complete VSCode project folder structure showing all files and directories to create</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-mono);font-size:13px;padding:0}
+.wrap{padding:16px 0}
+.toolbar{display:flex;align-items:center;justify-content:space-between;padding:0 16px 12px;border-bottom:1px solid var(--color-border-tertiary);margin-bottom:8px}
+.title{font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.legend{display:flex;gap:12px;font-family:var(--font-sans);font-size:11px;color:var(--color-text-secondary)}
+.legend span{display:flex;align-items:center;gap:4px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-dir{background:#378ADD}
+.dot-cfg{background:#639922}
+.dot-js{background:#BA7517}
+.dot-sql{background:#D85A30}
+.dot-env{background:#993556}
+
+.tree{padding:0 16px;line-height:1}
+.row{display:flex;align-items:center;gap:0;cursor:default;border-radius:4px;transition:background .1s;padding:1px 0}
+.row:hover{background:var(--color-background-secondary)}
+.row.dir > .name{color:#378ADD;font-weight:500}
+.row.cfg > .name{color:#639922}
+.row.js  > .name{color:#BA7517}
+.row.sql > .name{color:#D85A30}
+.row.env > .name{color:#993356}
+.row.md  > .name{color:var(--color-text-secondary)}
+.row.html> .name{color:#639922}
+
+.indent{display:inline-block;white-space:pre;color:var(--color-border-secondary);user-select:none;font-size:12px}
+.icon{width:16px;flex-shrink:0;font-size:13px;margin-right:3px;display:inline-flex;align-items:center;justify-content:center}
+.name{white-space:nowrap}
+.badge{margin-left:8px;font-family:var(--font-sans);font-size:10px;padding:1px 5px;border-radius:10px;vertical-align:middle;font-weight:500}
+.badge-new{background:var(--color-background-success);color:var(--color-text-success)}
+.badge-key{background:var(--color-background-info);color:var(--color-text-info)}
+.badge-git{background:var(--color-background-warning);color:var(--color-text-warning)}
+.badge-db{background:var(--color-background-danger);color:var(--color-text-danger)}
+
+.group-sep{height:4px}
+.section-label{font-family:var(--font-sans);font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.07em;padding:8px 16px 2px;margin-top:4px}
+</style>
+
+<div class="wrap">
+  <div class="toolbar">
+    <span class="title">zenzone-v2/ — Full Project Structure</span>
+    <span class="legend">
+      <span><span class="dot dot-dir"></span>Folder</span>
+      <span><span class="dot dot-js"></span>JS/JSX</span>
+      <span><span class="dot dot-cfg"></span>Config</span>
+      <span><span class="dot dot-sql"></span>SQL</span>
+      <span><span class="dot dot-env"></span>Env</span>
+    </span>
+  </div>
+
+  <div class="tree" id="tree"></div>
+</div>
+
+<script>
+const F=`
+ROOT:zenzone-v2/
+CFG:vercel.json:key
+CFG:vite.config.js:key
+CFG:tailwind.config.js
+CFG:postcss.config.js
+CFG:package.json
+HTML:index.html
+MD:README.md
+SQL:supabase-schema.sql:db
+ENV:.env.example:git
+ENV:.env.local:git
+ENV:.gitignore
+
+SEC:src/
+DIR:src/
+JS:src/main.jsx:key
+JS:src/App.jsx:key
+
+SEC:src/styles/
+DIR:src/styles/
+CFG:src/styles/index.css
+
+SEC:src/lib/ — Supabase & YouTube clients
+DIR:src/lib/
+JS:src/lib/supabase.js:key
+JS:src/lib/youtube.js
+
+SEC:src/store/ — Zustand global state
+DIR:src/store/
+JS:src/store/authStore.js:key
+JS:src/store/uiStore.js
+
+SEC:src/hooks/ — Custom React hooks
+DIR:src/hooks/
+JS:src/hooks/useAuth.js
+JS:src/hooks/usePomodoro.js
+
+SEC:src/services/ — Supabase API layer
+DIR:src/services/
+JS:src/services/auth.service.js
+JS:src/services/todos.service.js
+JS:src/services/mood.service.js
+JS:src/services/journal.service.js
+
+SEC:src/components/ui/ — Reusable base components
+DIR:src/components/
+DIR:src/components/ui/
+JS:src/components/ui/Skeleton.jsx
+
+SEC:src/components/layout/ — App shell
+DIR:src/components/layout/
+JS:src/components/layout/Navbar.jsx
+JS:src/components/layout/Sidebar.jsx
+JS:src/components/layout/PageWrapper.jsx
+
+SEC:src/components/shared/ — Cross-page shared
+DIR:src/components/shared/
+JS:src/components/shared/AmbientBackground.jsx
+JS:src/components/shared/BreathingRing.jsx
+JS:src/components/shared/ProtectedRoute.jsx
+
+SEC:src/pages/ — Route-level components
+DIR:src/pages/
+JS:src/pages/Landing.jsx
+JS:src/pages/Dashboard.jsx
+JS:src/pages/NotFound.jsx
+
+SEC:src/pages/auth/
+DIR:src/pages/auth/
+JS:src/pages/auth/Login.jsx
+JS:src/pages/auth/Register.jsx
+JS:src/pages/auth/ForgotPassword.jsx:new
+
+SEC:src/pages/meditation/
+DIR:src/pages/meditation/
+JS:src/pages/meditation/MeditationHub.jsx
+
+SEC:src/pages/music/
+DIR:src/pages/music/
+JS:src/pages/music/MusicZone.jsx
+
+SEC:src/pages/productivity/
+DIR:src/pages/productivity/
+JS:src/pages/productivity/TodoList.jsx
+JS:src/pages/productivity/PomodoroTimer.jsx
+JS:src/pages/productivity/HabitTracker.jsx:new
+
+SEC:src/pages/wellness/
+DIR:src/pages/wellness/
+JS:src/pages/wellness/BreathingExercise.jsx
+JS:src/pages/wellness/MoodTracker.jsx
+JS:src/pages/wellness/Journal.jsx
+JS:src/pages/wellness/Affirmations.jsx
+JS:src/pages/wellness/SleepSounds.jsx:new
+
+SEC:src/pages/profile/
+DIR:src/pages/profile/
+JS:src/pages/profile/UserProfile.jsx
+JS:src/pages/profile/WellnessStats.jsx
+
+SEC:src/pages/admin/
+DIR:src/pages/admin/
+JS:src/pages/admin/AdminDashboard.jsx
+
+SEC:src/utils/ — Pure helpers
+DIR:src/utils/
+JS:src/utils/formatDate.js:new
+JS:src/utils/streakCalculator.js:new
+JS:src/utils/moodColors.js:new
+
+SEC:public/ — Static assets
+DIR:public/
+MD:public/favicon.svg
+DIR:public/sounds/
+MD:public/sounds/rain.mp3
+MD:public/sounds/forest.mp3
+MD:public/sounds/ocean.mp3
+MD:public/sounds/cafe.mp3
+`
+
+const TYPE_CLASS={ROOT:'dir',DIR:'dir',JS:'js',CFG:'cfg',HTML:'html',MD:'md',SQL:'sql',ENV:'env',SEC:'sec'}
+const ICON={dir:'<i class="ti ti-folder" aria-hidden="true" style="color:#378ADD;font-size:14px"></i>',js:'<i class="ti ti-file-type-jsx" aria-hidden="true" style="color:#BA7517;font-size:14px"></i>',cfg:'<i class="ti ti-settings" aria-hidden="true" style="color:#639922;font-size:14px"></i>',html:'<i class="ti ti-file-type-html" aria-hidden="true" style="color:#639922;font-size:14px"></i>',md:'<i class="ti ti-file-type-md" aria-hidden="true" style="color:#888780;font-size:14px"></i>',sql:'<i class="ti ti-database" aria-hidden="true" style="color:#D85A30;font-size:14px"></i>',env:'<i class="ti ti-lock" aria-hidden="true" style="color:#993356;font-size:14px"></i>',sec:''}
+const BADGE={key:'<span class="badge badge-key">key</span>',new:'<span class="badge badge-new">new</span>',git:'<span class="badge badge-git">gitignore</span>',db:'<span class="badge badge-db">run in supabase</span>'}
+
+const lines=F.trim().split('\n')
+const tree=document.getElementById('tree')
+
+let currentSection=null
+
+lines.forEach(line=>{
+  if(!line.trim())return
+  const parts=line.split(':')
+  const type=parts[0]
+  const rest=parts.slice(1).join(':')
+  const segments=rest.split(':')
+  const pathRaw=segments[0]
+  const badge=segments[1]||''
+
+  if(type==='SEC'){
+    const lbl=document.createElement('div')
+    lbl.className='section-label'
+    lbl.textContent=pathRaw
+    tree.appendChild(lbl)
+    return
+  }
+
+  const row=document.createElement('div')
+  const cls=TYPE_CLASS[type]||'md'
+  row.className='row '+cls
+
+  // calculate indent from path depth
+  const depth=pathRaw.split('/').filter(Boolean).length
+  const isDir=type==='DIR'||type==='ROOT'
+  const displayDepth=isDir?depth-1:depth-1
+
+  // build indent string using box-drawing chars
+  let indentStr=''
+  for(let i=0;i<displayDepth;i++){
+    indentStr+= i===displayDepth-1?'  ':'  '
+  }
+  const connector=displayDepth>0?(isDir?'├─ ':'├─ '):''
+
+  // get just the file/folder name
+  const pathParts=pathRaw.split('/')
+  let name=pathParts[pathParts.length-(pathRaw.endsWith('/')?2:1)]
+  if(pathRaw.endsWith('/'))name+='/'
+
+  const icon=isDir?ICON.dir:ICON[cls]||''
+
+  row.innerHTML=`<span class="indent">${indentStr}${connector}</span><span class="icon">${icon}</span><span class="name">${name}</span>${badge&&BADGE[badge]?BADGE[badge]:''}`
+  tree.appendChild(row)
+})
+</script>

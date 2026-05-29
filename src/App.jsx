@@ -18,12 +18,15 @@ import Register         from '@/pages/auth/Register'
 import Dashboard        from '@/pages/Dashboard'
 import TodoList         from '@/pages/productivity/TodoList'
 import PomodoroTimer    from '@/pages/productivity/PomodoroTimer'
+import HabitTracker     from '@/pages/productivity/HabitTracker'
 import MeditationHub    from '@/pages/meditation/MeditationHub'
 import BreathingExercise from '@/pages/wellness/BreathingExercise'
 import MusicZone        from '@/pages/music/MusicZone'
 import MoodTracker      from '@/pages/wellness/MoodTracker'
 import Journal          from '@/pages/wellness/Journal'
 import Affirmations     from '@/pages/wellness/Affirmations'
+import SleepSounds      from '@/pages/wellness/SleepSounds'
+import ForgotPassword   from '@/pages/auth/ForgotPassword'
 import UserProfile      from '@/pages/profile/UserProfile'
 import WellnessStats    from '@/pages/profile/WellnessStats'
 import AdminDashboard   from '@/pages/admin/AdminDashboard'
@@ -38,14 +41,17 @@ function AnimatedRoutes() {
         <Route path="/"                element={<Landing />} />
         <Route path="/login"           element={<Login />} />
         <Route path="/register"        element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Protected */}
         <Route path="/dashboard"       element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/todos"           element={<ProtectedRoute><TodoList /></ProtectedRoute>} />
         <Route path="/pomodoro"        element={<ProtectedRoute><PomodoroTimer /></ProtectedRoute>} />
+        <Route path="/habits"          element={<ProtectedRoute><HabitTracker /></ProtectedRoute>} />
         <Route path="/meditation"      element={<ProtectedRoute><MeditationHub /></ProtectedRoute>} />
         <Route path="/breathing"       element={<ProtectedRoute><BreathingExercise /></ProtectedRoute>} />
         <Route path="/music"           element={<ProtectedRoute><MusicZone /></ProtectedRoute>} />
+        <Route path="/sleep-sounds"    element={<ProtectedRoute><SleepSounds /></ProtectedRoute>} />
         <Route path="/mood"            element={<ProtectedRoute><MoodTracker /></ProtectedRoute>} />
         <Route path="/journal"         element={<ProtectedRoute><Journal /></ProtectedRoute>} />
         <Route path="/affirmations"    element={<ProtectedRoute><Affirmations /></ProtectedRoute>} />

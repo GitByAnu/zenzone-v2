@@ -2,22 +2,25 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, ListTodo, Music2, Brain, Timer,
-  BookOpen, BarChart2, Wind, Star, Shield, X, Heart,
+  BookOpen, BarChart2, Wind, Star, Shield, X, Heart, Moon, Zap,
 } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 import { useUIStore } from '@/store/uiStore'
 import clsx from 'clsx'
 
 const NAV_ITEMS = [
-  { to: '/dashboard',   icon: LayoutDashboard, label: 'Dashboard',   group: 'main' },
-  { to: '/todos',       icon: ListTodo,        label: 'To-Do List',  group: 'productivity' },
-  { to: '/pomodoro',    icon: Timer,           label: 'Pomodoro',    group: 'productivity' },
-  { to: '/meditation',  icon: Brain,           label: 'Meditation',  group: 'wellness' },
-  { to: '/breathing',   icon: Wind,            label: 'Breathing',   group: 'wellness' },
-  { to: '/music',       icon: Music2,          label: 'Music Zone',  group: 'wellness' },
-  { to: '/mood',        icon: Heart,           label: 'Mood Log',    group: 'wellness' },
-  { to: '/journal',     icon: BookOpen,        label: 'Journal',     group: 'wellness' },
-  { to: '/affirmations',icon: Star,            label: 'Affirmations',group: 'wellness' },
+  { to: '/dashboard',   icon: LayoutDashboard, label: 'Dashboard',    group: 'main' },
+  { to: '/todos',       icon: ListTodo,        label: 'To-Do List',   group: 'productivity' },
+  { to: '/pomodoro',    icon: Timer,           label: 'Pomodoro',     group: 'productivity' },
+  { to: '/habits',      icon: Zap,             label: 'Habit Tracker',group: 'productivity' },
+  { to: '/meditation',  icon: Brain,           label: 'Meditation',   group: 'wellness' },
+  { to: '/breathing',   icon: Wind,            label: 'Breathing',    group: 'wellness' },
+  { to: '/music',       icon: Music2,          label: 'Music Zone',   group: 'wellness' },
+  { to: '/sleep',       icon: Moon,            label: 'Sleep Sounds', group: 'wellness' },
+  { to: '/mood',        icon: Heart,           label: 'Mood Log',     group: 'wellness' },
+  { to: '/journal',     icon: BookOpen,        label: 'Journal',      group: 'wellness' },
+  { to: '/affirmations',icon: Star,            label: 'Affirmations', group: 'wellness' },
+  { to: '/stats',       icon: BarChart2,       label: 'My Progress',  group: 'profile' },
   { to: '/stats',       icon: BarChart2,       label: 'My Progress', group: 'profile' },
 ]
 
